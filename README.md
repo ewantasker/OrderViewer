@@ -21,14 +21,14 @@ The table will consist of the following columns:
 - Status
 - Total
 - Created
-- There will be an action column for which the user can mark the order either paid or unpaid 
+- There will be an action column for which the user can mark an order either paid or unpaid 
 
 ## Prerequisites:
 - .NET 8
-- SQL Server or SQL Express installed. 
+- SQL Server or SQL Express installed
 
 ## Setups:
-1.) Make sure you change the connection of the database to point to your database in appsettings.json 
+1.) Make sure you change the connection of the database to point to your database in ```appsettings.json ```.
 ```
 {
   "ConnectionStrings": {
@@ -51,11 +51,12 @@ I filled out the following details:
 
 2.) Once you have the the database connection successfully, you will need to run the migration and the seed (Loading 50 demo orders onto the existing table on your db).
   This can be done by running the command ```Update-Database``` on the Package Manager console.
-  You can open up the Package Manager Console through View, Other Windows and then Package Manager Console
+  You can open up the Package Manager Console through View, Other Windows and then Package Manager Console.
   ```View/Other Windows/Package Manager Console```
 
 
-3.) Then you should be all set, all you need to do is click the green play button with the word https. That will run the application and it will be shown on thr browser
+3.) Then you should be all set, all you need to do is click the play button (full green color button).
+    That will run the application and it will be shown on thr browser.
 
 # Functional requirements
 

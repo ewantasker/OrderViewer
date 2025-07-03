@@ -8,13 +8,11 @@ namespace OrderViewer.Models
         public required string Customer { get; set; }
 
         public string Status { get; set; } = "Pending";
-
         public DateTime CreatedDate { get; set; }
 
         [Precision(18, 2)]
         public decimal Total { get; set; }  
 
         public bool Paid { get; set; } = false;
-
     }
 }

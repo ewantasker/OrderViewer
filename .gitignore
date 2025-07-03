@@ -1,0 +1,54 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build results
+bin/
+obj/
+
+# Rider IDE
+.idea/
+
+# DotNet Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# NuGet Packages
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+packages/
+
+# Publish outputs
+publish/
+
+# Logs
+*.log
+
+# Ignore user-specific files
+*.userosscache
+*.sln.docstates
+
+# Ignore generated files by EF Core tooling
+# (but NOT Migrations folder itself!)
+# e.g. ignore EF snapshot files if you want:
+# !Migrations/
+
+# Ignore node_modules if you have frontend assets
+node_modules/
+
+# Ignore env files
+.env
+
+# Ignore appsettings secrets
+appsettings.*.json
+
+# Ignore database files (if any local DB files)
+*.mdf
+*.ldf

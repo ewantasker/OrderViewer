@@ -1,0 +1,128 @@
+﻿@{
+    var startDate = Context.Request.Query["startDate"];
+    var endDate = Context.Request.Query["endDate"];
+    var minTotal = Context.Request.Query["minTotal"];
+    var maxTotal = Context.Request.Query["maxTotal"];
+
+    var statuses = new[] { "All", "Pending", "Processing", "Shipped", "Cancelled" };
+    var selectedStatus = Context.Request.Query["status"];
+}
+
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4">Orders List</h1>
+    </div>
+
+    <form method="get" action="/Home/Index" class="row g-3 justify-content-center mb-4">
+        <div class="col-md-2">
+            <label class="form-label">Start Date</label>
+            <input type="date" name="startDate" value="@startDate" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">End Date</label>
+            <input type="date" name="endDate" value="@endDate" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">Status</label>
+            <select name="status" class="form-select">
+                @foreach (var status in statuses)
+                {
+                    if (selectedStatus == status)
+                    {
+                        <option value="@status" selected>@status</option>
+                    }
+                    else
+                    {
+                        <option value="@status">@status</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">Min Total</label>
+            <input type="number" step="0.01" name="minTotal" value="@minTotal" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">Max Total</label>
+            <input type="number" step="0.01" name="maxTotal" value="@maxTotal" class="form-control" />
+        </div>
+        <div class="col-md-1 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Filter</button>
+        </div>
+    </form>
+
+    <div class="table-responsive">
+        <table class="table table-striped text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                    <th>Created Date</th>
+                    <th>Paid</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.Id</td>
+                        <td>@order.Customer</td>
+                        <td>@order.Status</td>
+                        <td>@order.Total.ToString("C")</td>
+                        <td>@order.CreatedDate.ToShortDateString()</td>
+                        <td>
+                            @if (!order.Paid)
+                            {
+                                <button type="button" class="btn btn-success btn-sm" onclick="markPaid(@order.Id, true)">Mark Paid</button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-warning btn-sm" onclick="markPaid(@order.Id, false)">Mark Unpaid</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function markPaid(orderId, paid) {
+            fetch('/Home/MarkPaid', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: orderId, paid: paid })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    showToast(data.message);
+                    setTimeout(() => location.reload(), 1000);
+                } else {
+                    alert('Update failed.');
+                }
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.innerText = message;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.right = '20px';
+            toast.style.backgroundColor = '#28a745';
+            toast.style.color = 'white';
+            toast.style.padding = '10px 20px';
+            toast.style.borderRadius = '5px';
+            toast.style.zIndex = 1000;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+    </script>
+}

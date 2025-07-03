@@ -75,3 +75,8 @@ the entire page. (Point 5)
 
 - Details View: Clicking a row reveals line items, quantities, and prices. (Point 3)
 - Live Statistics Widget: Show the count and grand total of the currently filtered orders without a fullpage refresh. (Point 4)
+
+
+# Other Incomplete tasks/requirements
+
+- Unit Tests (None)

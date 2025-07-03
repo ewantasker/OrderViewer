@@ -28,6 +28,8 @@ The table will consist of the following columns:
 - SQL Server or SQL Express installed
 
 ## Setups:
+Once you had cloned the project, the only setup you need to do is point the correct database to the application.
+
 1.) Make sure you change the connection of the database to point to your database in ```appsettings.json ```.
 ```
 {
